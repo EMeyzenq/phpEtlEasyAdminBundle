@@ -39,7 +39,7 @@ class EtlDownloadFileController extends AbstractController
         $context = $this->executionContextFactory->get(['etl' => ['execution' => $execution]]);
         $file = $context->getFileSystem()->readStream($filename);
 
-        $response = new StreamedResponse(function () use ($file) {
+        $response = new StreamedResponse(function () use ($file): void {
             $outputStream = fopen('php://output', 'wb');
             stream_copy_to_stream($file, $outputStream);
         });
